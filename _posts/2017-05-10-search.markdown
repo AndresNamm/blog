@@ -7,7 +7,7 @@ date: "2017-05-10 18:54"
 <script type="text/javascript" async
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
-
+
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [INTRO AND DEFINITIONS](#intro-and-definitions)
@@ -127,7 +127,7 @@ Here the algorithm stores the states, that have been explored, e.g. states, whic
 
 + **Complexity O(b^{n})** b - branching factor, n - depth of tree
 + **Frontier: Stack**
-+ **Space $O(n* b)$**
++ **Space $$O(n* b)$**
 + **Complete**  No - if you can get from child to parent with some route, you're screwed
 + **Optimal** - No
 
@@ -138,9 +138,9 @@ Here the algorithm stores the states, that have been explored, e.g. states, whic
 
 **Some info about TSA form**
 
-+ **Complexity O(b^{C/$\epsilon$})**  $\epsilon$ - Small positive constant $C$ - shallowest solution
-+ **Space O(b^{C/$\epsilon$})** $\epsilon$ - Small positive constant $C$ - shallowest solution  
-+ **Complete** Yes, $\epsilon$ larger than 0
++ **Complexity O(b^{C/$\epsilon$})**  $\epsilon$$ - Small positive constant $$C$$ - shallowest solution
++ **Space O(b^{C/$\epsilon$})** $\epsilon$$ - Small positive constant $$C$$ - shallowest solution  
++ **Complete** Yes, $\epsilon$$ larger than 0
 + **Optimal** - Yes
 
 **Frontier**
@@ -155,7 +155,7 @@ In UCS we take elements with smallest distance from the start state first for ex
 ## INFORMED SEARCH
 
 
-###  $A^{* }$ ALGORITHM
+###  $$A^{* }$ ALGORITHM
 
 Takes The distance and heuristic sums them up. Compares based on that.
 Implementations can be different One way:
@@ -290,19 +290,19 @@ Add Depth limit. Use some heursitic.
 Assigns turns based on Player(State)
 2 Recursive functions
 
-These now pass on in addition to state: 2 variables $(\alpha,\beta)$ In the beginning $\alpha=-\inf$ and $\beta=\inf$ which indicates no bound
+These now pass on in addition to state: 2 variables $(\alpha,\beta)$ In the beginning $\alpha=-\inf$$ and $\beta=\inf$$ which indicates no bound
 
-**Max updates $\alpha$ and checks for $\beta$**
-$\alpha$ is kinda the lower bound of the values it will accept min subtrees.
-$\beta$ is kinda the upper bound of the values max parent min will accept from subtrees.
+**Max updates $\alpha$$ and checks for $\beta$**
+$\alpha$$ is kinda the lower bound of the values it will accept min subtrees.
+$\beta$$ is kinda the upper bound of the values max parent min will accept from subtrees.
 
 + It updates alpha, when it gets some result from a subtree which is larger then the previous $\alpha$.
 + If a MIN subtree returns a value which is larger then the upper bound, it will stop checking other subtrees, because parent MIN is going to not accept it anyway. Instead it just returns the uppers bound
 
-**Min update $\beta$ and checks for $\alpha$**
+**Min update $\beta$$ and checks for $\alpha$**
 
-$\beta$ is kinda the upper bound of the values min will accept from subtrees.
-$\alpha$ is kinda the lower bound of the values its parents will accept from itself.
+$\beta$$ is kinda the upper bound of the values min will accept from subtrees.
+$\alpha$$ is kinda the lower bound of the values its parents will accept from itself.
 
 + It updates alpha, when it gets some result from the subtree which is smaller than the current beta.
 + It checks for alpha. If the value it receives from a subtree is smaller than alpha it stops for checking, because parent is not going to accept that value anyway.
@@ -338,7 +338,7 @@ The drinking game is also a game like that.
 
 Pretty much
 
-$A>B>C=>\exists p,[p*A;(1-c)* C]\text{~}B$
+$$A>B>C=>\exists p,[p*A;(1-c)* C]\text{~}B$$
 
 This allows us to calculate probability and based on probability assign value to B.
 
