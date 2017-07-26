@@ -1,3 +1,8 @@
+---
+title: Jekyll Tutorial
+layout: page
+---
+
 # Jekkyll Github Pages Setup necessary 
 
 Most important
