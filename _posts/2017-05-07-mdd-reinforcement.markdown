@@ -4,12 +4,6 @@ title: "LEARNING A POLICY UNDER A MARKOV DECISION PROCESS WITH METHODS DERIVED F
 "
 date: "2017-05-07 13:16"
 ---
-
-
-<script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [THE MAIN GOAL OF THIS CONSPECT](#the-main-goal-of-this-conspect)
@@ -18,12 +12,12 @@ date: "2017-05-07 13:16"
 	- [MOST IMPORTANT VARIABLES](#most-important-variables)
 - [OFFLINE ALGORITHMS](#offline-algorithms)
 	- [PREFACE](#preface)
-	- [FINDING $V^{* }(s)$](#finding-v-s)
+	- [FINDING $$V^{* }(s)$$](#finding-v-s)
 		- [Value Iteration](#value-iteration)
 		- [Policy Iteration](#policy-iteration)
 	- [POLICY EXTRACTION](#policy-extraction)
 		- [Based on Q-values](#based-on-q-values)
-		- [Based on $V(s)$](#based-on-vs)
+		- [Based on $$V(s)$$](#based-on-vs)
 	- [POLICY EVALUATION](#policy-evaluation)
 		- [Iterative method](#iterative-method)
 		- [Linear Equation based](#linear-equation-based)
@@ -65,21 +59,21 @@ Overall, however these algorithms are actually very similiar in nature and its a
 
 ## MDD PROBLEM MODEL
 
-* A set of states $s \in S$
-* A set of action $a \in A$
-* A transition function $T(s,a,s')$ If this is 1 then just a  Search problem.
+* A set of states $$s \in S$$
+* A set of action $$a \in A$$
+* A transition function $$T(s,a,s')$$ If this is 1 then just a  Search problem.
   * This actually is the probability, if I take action a from state s, Ill end up in s'
-* A reward function $R(s,a,s')$
-* A start state $s_{0}$
+* A reward function $$R(s,a,s')$$
+* A start state $$s_{0}$$
 * A terminal state.
 
 ## MOST IMPORTANT VARIABLES
 
-* $T(s,a,s')$
-* $V^{* }(s)$ , expected utility starting in state s and acting optimally
-* $Q^{* }(s)$ Expected utility starting in state s, taking action a and acting optimally after that.
-* $V^{\pi}_{k}(s)$, where $\pi$ is a policy. - This is the expected utility of a state acting according to $\pi$
-* $\pi(s)$ action taken in state s according to policy $\pi$. $\pi^{* }(s)$ is the action according to optimal policy.   
+* $$T(s,a,s')$$
+* $$V^{* }(s)$$ , expected utility starting in state s and acting optimally
+* $$Q^{* }(s)$$ Expected utility starting in state s, taking action a and acting optimally after that.
+* $$V^{\pi}_{k}(s)$$, where $$\pi$$ is a policy. - This is the expected utility of a state acting according to $$\pi$$
+* $$\pi(s)$$ action taken in state s according to policy $$\pi$$. $$\pi^{* }(s)$$ is the action according to optimal policy.   
 
 
 # OFFLINE ALGORITHMS
@@ -89,35 +83,35 @@ Overall, however these algorithms are actually very similiar in nature and its a
 ## PREFACE
 
 Everything Im going to cover is based on BELLMAN EQUATION
-$V^{* }(s) = max_{a}\sum{T(s,a,s')[R(s,a,s')+D*V^{* }(s')]}$  
+$$V^{* }(s) = max_{a}\sum{T(s,a,s')[R(s,a,s')+D*V^{* }(s')]}$$  
 D here stands for Discount and we assume this is always known previously. User chosen variable.
 
-## FINDING $V^{* }(s)$
+## FINDING $$V^{* }(s)$$
 
 ###Value Iteration
 
-**Input:** $R(s,a,s'), T(s,a,s'); \forall s,a$   
-**Returns:**  $V(s),\forall s$  
-**Complexity** This takes $O(S^{2}A)$ for each iteration
+**Input:** $$R(s,a,s'), T(s,a,s'); \forall s,a$$   
+**Returns:**  $$V(s),\forall s$$  
+**Complexity** This takes $$O(S^{2}A)$$ for each iteration
 
 _Method_
 
-* Set $V_{0}(s)=0, \forall s$  
-* Recursively perform updates until convergence  $V_{k}(s) = max_{a}\sum{T(s,a,s')[R(s,a,s')+D*V_{k-1 }(s')]}$  
+* Set $$V_{0}(s)=0, \forall s$$  
+* Recursively perform updates until convergence  $$V_{k}(s) = max_{a}\sum{T(s,a,s')[R(s,a,s')+D*V_{k-1 }(s')]}$$  
 
 
 ### Policy Iteration
 
-**Input:** $R(s,a,s'), T(s,a,s'); \forall s,a$   
-**Returns:**  $V(s),\forall s$  
-**Complexity** $O(S^{2})$ for step 2
+**Input:** $$R(s,a,s'), T(s,a,s'); \forall s,a$$   
+**Returns:**  $$V(s),\forall s$$  
+**Complexity** $$O(S^{2})$$ for step 2
 
 _Method_
 
 
-1. Initialize a random policy $\pi_{k=0}$
+1. Initialize a random policy $$\pi_{k=0}$$
 2. Perform Policy Evaluation Using the Iterative method until it converges.
-3. Update policy $\pi_{k+1}(s)=max_{a}\sum{T(s,a,s')[R(s,a,s')+D*V^{\pi_{k}}(s')]}$
+3. Update policy $$\pi_{k+1}(s)=max_{a}\sum{T(s,a,s')[R(s,a,s')+D*V^{\pi_{k}}(s')]}$$
 4. Repeat from 2. step until Convergence
 
 
@@ -126,50 +120,50 @@ _Method_
 
 ### Based on Q-values  
 
-**Input:** $Q(s,a) \forall s,a$  
-**Output:**$\pi(s) \forall s$
-**Complexity:** $O(SA)$
+**Input:** $$Q(s,a) \forall s,a$$  
+**Output:**$$\pi(s) \forall s$$
+**Complexity:** $$O(SA)$$
 _Method_
 
-* $\pi_(s)=max_{Q(s,a)}, \forall s$
+* $$\pi_(s)=max_{Q(s,a)}, \forall s$$
 
-### Based on $V(s)$
+### Based on $$V(s)$$
 
-**Input:** $V(s), T(s,a,s'), R(s,a,s'); \forall s,$    
-**Output:** $\pi(s); \forall s$  
-**Complexity:** $O(SA)$  
+**Input:** $$V(s), T(s,a,s'), R(s,a,s'); \forall s,$$    
+**Output:** $$\pi(s); \forall s$$  
+**Complexity:** $$O(SA)$$  
 
 _Method_
 
-* $\pi(s) = max_{a}\sum{T(s,a,s')[R(s,a,s')+D*V(s')]}$    
+* $$\pi(s) = max_{a}\sum{T(s,a,s')[R(s,a,s')+D*V(s')]}$$    
 _(1-Step Expectimax)_
 
 ## POLICY EVALUATION
 
 ### Iterative method
-**Input:** $\pi(s),T(s,a,s'), R(s,a,s');\forall s$  
-**Output:** $V(s);\forall s$  
-**Complexity:** $O(S^{2})$
+**Input:** $$\pi(s),T(s,a,s'), R(s,a,s');\forall s$$  
+**Output:** $$V(s);\forall s$$  
+**Complexity:** $$O(S^{2})$$
 
 _Method_
 
-* Set $V_{0}(s)=0, \forall s$  
-* Recursively perform updates until convergence  $V_{k}(s) = \sum{T(s,\pi(s),s')[R(s,\pi(s),s')+D*V_{k-1 }(s')]}$  
+* Set $$V_{0}(s)=0, \forall s$$  
+* Recursively perform updates until convergence  $$V_{k}(s) = \sum{T(s,\pi(s),s')[R(s,\pi(s),s')+D*V_{k-1 }(s')]}$$  
 
 
 
 
 ### Linear Equation based
 
-**Input:** $\pi(s),T(s,a,s'), R(s,a,s');\forall s$  
-**Output:** $V(s);\forall s$  
+**Input:** $$\pi(s),T(s,a,s'), R(s,a,s');\forall s$$  
+**Output:** $$V(s);\forall s$$  
 **Complexity:** Depends on the method to solve
 
 _Method_
 
 For all s we have an equation:
-$V^{\pi}(s) = \sum{T(s,\pi(s),s')[R(s,\pi(s),s')+D*V^{\pi}(s')]}$  
-We are looking for $V^{\pi}(s)$ for all s. Thus have a  a linear equation of count(s) variables and equations
+$$V^{\pi}(s) = \sum{T(s,\pi(s),s')[R(s,\pi(s),s')+D*V^{\pi}(s')]}$$  
+We are looking for $$V^{\pi}(s)$$ for all s. Thus have a  a linear equation of count(s) variables and equations
 
 # ONLINE ALGORITHMS AKA REINFORCEMENT LEARNING
 
@@ -189,8 +183,8 @@ _Just execute the policy and learn from experience_
 _We try to model R & T first and then get to the evaluation of states_
 
 
-**Input:** $\pi$  
-**Output:** $T(s,a,s'), R(s,a,s'),V(s);\forall s,a$  
+**Input:** $$\pi$$  
+**Output:** $$T(s,a,s'), R(s,a,s'),V(s);\forall s,a$$  
 **Complexity:**
 
 _Method_
@@ -198,7 +192,7 @@ _Method_
 2 Steps
 
 1. Extraction of T(s,a,s') and R(s,a,s')   
- a. Randomly Initialize policy $\pi$  
+ a. Randomly Initialize policy $$\pi$$  
  b. Execute this policy and for every pair (s,a) <-(you can consider that as a key in hash table) collect samples results T(s,a,s') and R(s,a,s')  
  c. Normalize and give estimates
 2. Extraction of State values   
@@ -211,8 +205,8 @@ Can be based on Value Iteration or Policy iteration
 ### Direct Evaluation of states
 
 
-**Input:** $\pi$    
-**Output:** $V(s);\forall s$  
+**Input:** $$\pi$$    
+**Output:** $$V(s);\forall s$$  
 **Complexity:**
 
 
@@ -228,12 +222,12 @@ Problems
 
 ### Sampling of transitions to evaluate states - V-value learning Temporal Difference learning
 
-**Input:** $\pi$    
-**Output:** $V(s);\forall s$  
+**Input:** $$\pi$$    
+**Output:** $$V(s);\forall s$$  
 **Complexity:**
 
-1. Every time you perform a transformation, collect a sample based on $(s,\pi(s),s',r)$. $sample=R(s,\pi(s),s')+D*V^{\pi}(s')$
-2. Update $V^{\pi}(s) = (1-\alpha)* V^{\pi}(s) + \alpha*sample$
+1. Every time you perform a transformation, collect a sample based on $$(s,\pi(s),s',r)$$. $$sample=R(s,\pi(s),s')+D*V^{\pi}(s')$$
+2. Update $$V^{\pi}(s) = (1-\alpha)* V^{\pi}(s) + \alpha*sample$$
 
 * We cant still extract policy.
 
@@ -245,19 +239,19 @@ In the first method we perform state evaluation separately for every state and o
 
 ### Sampling of transitions to evaluate Q-values: Q-value learning
 
-**Input:** $\emptyset$    
-**Output:** $Q(s,a);\forall s,a$  
+**Input:** $$\emptyset$$    
+**Output:** $$Q(s,a);\forall s,a$$  
 **Complexity:**
 
 
-1.  Every time you perform transition $(s,a)$ get a sample $(s,a,t',r)$.
-$Sample(s,a) = R(s,a,s')+max_{a}Q(s')$
-2.  Instead of updating $V^{\pi}(s)$, we now update $Q(s,a)=(1-\alpha)Q(s,a)+\alpha*sample$
+1.  Every time you perform transition $$(s,a)$$ get a sample $$(s,a,t',r)$$.
+$$Sample(s,a) = R(s,a,s')+max_{a}Q(s')$$
+2.  Instead of updating $$V^{\pi}(s)$$, we now update $$Q(s,a)=(1-\alpha)Q(s,a)+\alpha*sample$$
 s
 #### Exploration and Learning parameters
 
-+ $$$\alpha$$$ must decrease eventually
-+ Optimal exploration with $1-\epsilon$ Random exploration with some probability $\epsilon$, so other states would be collected. This parameter must also decrease, because in the end with knowledge we want to gain information about optimal state.
++ $$$$$$\alpha$$$$$$ must decrease eventually
++ Optimal exploration with $$1-\epsilon$$ Random exploration with some probability $$\epsilon$$, so other states would be collected. This parameter must also decrease, because in the end with knowledge we want to gain information about optimal state.
 
 #### Q-value Approximation & Updated Q-learning- Kinda hard part
 
@@ -277,25 +271,25 @@ Thus we generalize states so experience could be used for new unexplored situati
 If we do this, we can now use learned information for new states based on **feature vector** similiarity.
 
 Now if every state and action  can be represented as a feature vector
-$$
+$$$$
 (s,a) = \begin{bmatrix} f_{1}(s,a) \\ f_{2}(s,a) \\ ... \\ f_{n}(s,a) \end{bmatrix}
-$$
+$$$$
 
-.We can transfer the $Q(s,a)=w_{2}f_{1}(s,a) + w_{2}f_{2}(s,a) + ... + w_{n}f_{n}(s,a)$ then continue on with updating Q(s,a) like this
+.We can transfer the $$Q(s,a)=w_{2}f_{1}(s,a) + w_{2}f_{2}(s,a) + ... + w_{n}f_{n}(s,a)$$ then continue on with updating Q(s,a) like this
 
 _Updated Method_
 
-**transition**: $(s,a,r,s')$  
-**difference**: $[r(s,a,s')+D*max_{a}Q(s',a')]-Q(s,a)$
+**transition**: $$(s,a,r,s')$$  
+**difference**: $$[r(s,a,s')+D*max_{a}Q(s',a')]-Q(s,a)$$
 
-$Q(s,a)=Q(s,a)+\alpha*difference$  - Exact Q-value   
-$w_{i}=w_{i}+\alpha * difference * f_{i}(s,a)$ <- Difference static over all $f_{i}(s,a)$
+$$Q(s,a)=Q(s,a)+\alpha*difference$$  - Exact Q-value   
+$$w_{i}=w_{i}+\alpha * difference * f_{i}(s,a)$$ <- Difference static over all $$f_{i}(s,a)$$
 
 _Intuition_
 
-* If difference is very low (negative) <- Bad Q result and $f_{i}(s,a)$ is high, then then $w_{i}$ becomes significantly smaller. Tha for the end learning result would mean that high $f_{i}(s,a)$ would result in lower $Q(s,a)$
-* If difference is very large and $f_{i}(s,a)$ is very low. then the result would not change much, because $f_{i}(s,a)$ as a multiplier is also very low.
-* If difference is very large and $f_{i}(s,a)$ is very low. then the result would not change much, because $f_{i}(s,a)$ as a multiplier is also very low. Hmm, that does not make much sense.  
+* If difference is very low (negative) <- Bad Q result and $$f_{i}(s,a)$$ is high, then then $$w_{i}$$ becomes significantly smaller. Tha for the end learning result would mean that high $$f_{i}(s,a)$$ would result in lower $$Q(s,a)$$
+* If difference is very large and $$f_{i}(s,a)$$ is very low. then the result would not change much, because $$f_{i}(s,a)$$ as a multiplier is also very low.
+* If difference is very large and $$f_{i}(s,a)$$ is very low. then the result would not change much, because $$f_{i}(s,a)$$ as a multiplier is also very low. Hmm, that does not make much sense.  
 
 ## Reinforcement vs Linear Regression, Logistic Regression, Gradient Descent
 
