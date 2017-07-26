@@ -4,6 +4,12 @@ title: "LEARNING A POLICY UNDER A MARKOV DECISION PROCESS WITH METHODS DERIVED F
 "
 date: "2017-05-07 13:16"
 ---
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [THE MAIN GOAL OF THIS CONSPECT](#the-main-goal-of-this-conspect)
