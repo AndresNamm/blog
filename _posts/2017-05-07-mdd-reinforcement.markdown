@@ -94,7 +94,7 @@ D here stands for Discount and we assume this is always known previously. User c
 
 ## FINDING $$V^{* }(s)$$
 
-###Value Iteration
+### Value Iteration
 
 **Input:** $$R(s,a,s'), T(s,a,s'); \forall s,a$$   
 **Returns:**  $$V(s),\forall s$$  
