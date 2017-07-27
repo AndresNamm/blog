@@ -1,5 +1,5 @@
 ---
-title: Lifehacks with CS
+title: Machine Learning
 layout: page
 ---
 

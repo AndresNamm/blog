@@ -1,5 +1,5 @@
 ---
-title: Lifehacks with CS
+title: Java
 layout: page
 ---
 
