@@ -9,15 +9,17 @@ category: machine-learning
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
-# Backpropagation
-
-
-
 
 
 [[toc]]
 + TOC
 {:toc}  
+
+# Backpropagation
+
+I have written this  description about the intrinsics of backpropagation to get a quick and clear insight into the idea and the mathematics of backpropagation in a level which a first year CS master student should understand. I myself use this for a quick reminder, so maybe the best purpose for this should be recap. At least the mathematics should be generally correct
+
+
 
 
 ## Some references 
