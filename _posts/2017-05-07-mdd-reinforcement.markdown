@@ -89,6 +89,7 @@ Overall, however these algorithms are actually very similiar in nature and its a
 ## PREFACE
 
 Everything Im going to cover is based on BELLMAN EQUATION
+
 $$V^{* }(s) = max_{a}\sum{T(s,a,s')[R(s,a,s')+D*V^{* }(s')]}$$  
 D here stands for Discount and we assume this is always known previously. User chosen variable.
 
