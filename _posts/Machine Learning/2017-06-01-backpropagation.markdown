@@ -70,7 +70,11 @@ Initialize $\Delta^{l}_{ij}=0,  \forall ij\text{ and }l$
 
 **Example of forward propagation**   
 
-![](/assets/forwardProp.png)
+
+![]({{site.url}}{{site.baseurl}}/assets/forwardProp.png)
+![]({{site.baseurl}}/assets/forwardProp.png)
+![](http://localhost:4000/assets/forwardProp.png)
+
 
 2. Calculate the cost
     + Definitions
