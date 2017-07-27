@@ -75,7 +75,7 @@ Overall, however these algorithms are actually very similiar in nature and its a
 
 ## MOST IMPORTANT VARIABLES
 
-+ $$T(s,a,s')$$.
++ $$T(s,a,s')$$ 
 + $$V^{* }(s)$$ , expected utility starting in state s and acting optimally
 + $$Q^{* }(s)$$ Expected utility starting in state s, taking action a and acting optimally after that.
 + $$V^{\pi}_{k}(s)$$, where $$\pi$$ is a policy. - This is the expected utility of a state acting according to $$\pi$$
