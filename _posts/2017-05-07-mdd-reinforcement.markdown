@@ -256,8 +256,8 @@ $$Sample(s,a) = R(s,a,s')+max_{a}Q(s')$$
 s
 #### Exploration and Learning parameters
 
-+ $$$$$$\alpha$$$$$$ must decrease eventually
-+ Optimal exploration with $$1-\epsilon$$ Random exploration with some probability $$\epsilon$$, so other states would be collected. This parameter must also decrease, because in the end with knowledge we want to gain information about optimal state.
++ $$\alpha$$ must decrease eventually
++ Optimal exploration with $$\epsilon$$ Random exploration with some probability $$\epsilon$$, so other states would be collected. This parameter must also decrease, because in the end with knowledge we want to gain information about optimal state.
 
 #### Q-value Approximation & Updated Q-learning- Kinda hard part
 
@@ -277,9 +277,9 @@ Thus we generalize states so experience could be used for new unexplored situati
 If we do this, we can now use learned information for new states based on **feature vector** similiarity.
 
 Now if every state and action  can be represented as a feature vector
-$$$$
+$$
 (s,a) = \begin{bmatrix} f_{1}(s,a) \\ f_{2}(s,a) \\ ... \\ f_{n}(s,a) \end{bmatrix}
-$$$$
+$$
 
 .We can transfer the $$Q(s,a)=w_{2}f_{1}(s,a) + w_{2}f_{2}(s,a) + ... + w_{n}f_{n}(s,a)$$ then continue on with updating Q(s,a) like this
 
