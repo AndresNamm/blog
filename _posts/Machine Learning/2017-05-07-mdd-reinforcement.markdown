@@ -3,6 +3,8 @@ layout: "post"
 title: "LEARNING A POLICY UNDER A MARKOV DECISION PROCESS WITH METHODS DERIVED FROM BELLMAN EQUATION
 "
 date: "2017-05-07 13:16"
+category: machine-learning
+
 ---
 
 

@@ -1,12 +1,12 @@
 ---
 layout: page
-title: tut
+title: tuts
 
 ---
 
 {% for poem in site.categories.formating %}
   {{poem.title}}
-  {{poem.}}
+  
   {{ poem.output }}
   
 {% endfor %}
