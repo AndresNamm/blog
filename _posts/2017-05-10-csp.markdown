@@ -1,0 +1,212 @@
+---
+layout: "post"
+title: "CSPs"
+date: "2017-06-11 10:53"
+category: machine-learning
+---
+
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+
+[[toc]]
++ TOC
+{:toc}  
+
+
+CSPs
+
+
+# GOAL
+
+Assignement to variables while satisfying constraints. Every solution is the same depth. No optimal solution.
+
+#  PROBLEM STATEMENT
+
+Problem Consists of
+1. A set of variables $$X={X_{1},X_{2},..,X_{n}}$$
+2. A set of domains $$D={D_{1},D_{1}...,D_{k}}$$
+3. A set of constraints $$C={C_{1},C_{2}...,C_{l}}$$ Constraints Can be between 2 variables or include more than 2 - Think about this as a function which based on input (variables) returns true or false.
+
+
+[CODE THAT DEFINES THIS PROBLEM WELL, ALSO IMPLEMENT AC3](https://github.com/LewisJEllis/Various/blob/master/sudoku/sudoku.py)
+
+
+
+## PROBLEM ELABORATION
+
+**What are variables more specifically**
+
+Its always not actually easy and straigthforward to choose what can be considered as variables. A good indication is, that something is variable, if it has a solution, with all variables having some assigned values.
+
+
+**State Space**   
+
+All possible Assignements of Domains to Variables.
+
+**Constraints**
+
+Can be elaborated
++ Implicitly - Through some logic. Think about it like function with return value true or false.
++ Explicitly - Through showing exactly what can happen.
+
+1 CSP can have multiple different types of constraints.
+
+Dilemma - Are constraints static. Can start to exist between variable depending on assignment.
+
+
+
+
+**Types of Constraints**
+
+Based on the quiz, some constraints can kinda be both binary and unary . Many types that is
++ Unary
++ Binary
++ Higer-Order
+
+**CSP-s can be**
++ consistent - no constraints violated
++ complete - all variables have been assigned a domains
++ consistenad and complete - solution
+
+
+**Example problems**
+
++ n-queens
++ map coloring
++ time schedulin
++ cryptarithmetic
+
+
+# SOLVING THIS PROBLEM
+
+## APPROACH STATEGIES
+
+**GRAPH THE PROBLEM**
+
++ Nodes - variables
++ Arc - constraints existance
+
+## Methods
+
+I have added a pdf of the algorithms To this folder. Its called csp.notes
+
+### Simple assignemenent DFS
+
+Pointless
+
+### Backtracking
+
+**$$O(n^{d})$$**
+
+It is like DFS, which checks legality of assignements  (does not do legal assignements and if no legal assignements possible, then this method performs backtracking-goes back in the tree ) and assigns only to 1 variable at each level.
+
+1. Only consider assignements to 1 variable in each point. Avoid commutativity. In trees this would look like only performing coloring of 1 variable in each level.
+2. Only allow legal assignements
+
+
+### FILTERING TO REDUCE COMPLEXITY
+
+
+#### ARCCONSISTENCY
+
+Tail->Head
+
+There is arc consistency between Tail and Head (variables), if for every possible domain value in the tail, there exists a possible domain value in head.
+
+
+#### BACKTRACKING + FORWARD CHECKING
+
+
+
+Do all the same things thad backtracking does,
+
++ But after the assignement check the domains of all the constraint neighbours of assignemnt and remove from there domain values, which are inconsistnet with assignement. If there is some inconsistency there, then this assignement does not fit.
++ The last point could have been concluded by saying: After the assignement force ArcConsistency for all constraint neighbours pointing to the variable to which the domain was assigned. 
++ The last point can be also said, that it performs REVISE operation on all the variables.
+$$REVISE(X_{i},X_{j}):\forall d\in D_{i} \exists d\in D_{j} \text{ that satisfies constraints?}$$
+
+
+
+
+**We must take into account only the constraints that this specific domain assignement caused**
+Only remove domain values that dont staisfy constraints with the assigned domain.
+That we do in AC3
+
+
+#### AC3
+
+**AC3 STILL MIGHT NEED BACKTRACKING**
+AC3 is just a better way to perforrm forward checcking. More thorough check. Allows us to fail earlier.
+
+**$$O(c* d^{2} *d)$$** - c is the number of arcs and d comes from the amount of domains to be removed for every arc. In each round through the c arcs we have to remove at least 1 element, otherwise the queue becomes empty.
+
+$$d^{2}$$ is the Revise Procedure.
+
+Consists of 2 procedurs
+
++ $$REVISE(X_{i},X_{j})$$ - checks arc consistency of arc $$X_{i}->X_{j}$$ and removes elements from $$X_{i}$$ If removes, returns true, else returns false
++ AC3
+    + Initializes as Queue of all existing arcs.
+    + Pops 1 by 1 arcs out of the queue, does $$REVISE(X_{i},X_{j})$$ procedure, if REVISE returns true, adds $$X_{i}$$ neighbours, except $$X_{j}$$ to the queue to perform rechecking, where $$X_{i}$$ acts as Hea
+
+**Why dont we add the $$X_{j}$$ to the queue again in the previous scenario?**
+
+There are 2 Possible scenarions
+
++ Head -> Tail has not been checked yet, so its in the queue already
++ Head -> Tail has been checked
+
+This means , (1) that we enforced arc consistency on  $$X_{j}->X_{i}$$ already.
+(2) Now we enforced arc consistency of $$X_{i}->X_{j}$$. In this part we could have only removed domain elements from $$X_{i}$$ that could not coexist with any element in $$X_{j}$$. These elements could not have been elements, which allowed arc consistency in part (1).
+
+
+
+#### CHOOSING THE ORDER OF VARIABLES IN ADDING DOMAINS
+
+Main Idea, fail as early as possible
+
+ MRV & DEG
+
+1. Choose variables, which have the least Domain values left MRV - minimum remaining values
+    + TIE BRAKER: Choose first the variables, which have the most constraints    
+    + TIE BRAKER: CHOOSE VARIABLES WHICH RULE OUT THE FEWEST VALUES IN THE REMAINING VALUES  
+
+
+#### K - CONSISTENCY
+
++ 1-consistency (node consistency)
++ Each single node’s constrain has a value which
+meets that node’s unary constraints
++ 2-consistency (arc consistency)
++ For each pair of nodes, any consistent assignment to
+one can be extended to the other
++ k-consistency
++ For each k nodes, any consistent assignment to (k-1)
+can be extended to the k-th node
++ Higher k is more expensive to compute
+
+
+
+**Strong k-consistency exists if CSP** is 1,2,3..k consistent.
+If we have k nodes and have enforced k-consistency, we can add choose values in CSP without performing backtracking
+
+AC3, enforces 2 consistency
+
+
+#### TREE STRUCTURED CSP-s
+
+**$$O(nd^{2})$$** n-number of nodes
+
+This allows us to assign values without backtracking
+
+[Visualized explanation](http://cs188ai.wikia.com/wiki/Tree_Structure_CSPs)
+
+With tree structured CSP-s we can order the problem, so we don't have to perform backtracking.
+We go from right to left. And remove elements only from the parents (Force Arc Consistency on 1 side).
+**This works, because** when we now come back from left to right, we can choose any element from parent and that element  always fits to the children.

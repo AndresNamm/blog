@@ -1,0 +1,315 @@
+---
+layout: "post"
+title: "Search"
+category: machine-learning
+---
+
+
+
+
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+[[toc]]
++ TOC
+{:toc}  
+
+# INTRO AND DEFINITIONS
+
+## TYPES OF SEARCH
+
++ Uninformed - Only problem Definition BFS
++ Informed - Uninformed + Heuristic  - A* pacman
++ Local - State modification based - 8 queens
+
+## AGENTS
+
++ Reflex - acts based current input. Does not think about future
++ Problem Solving - Decision based on hypothesized consequences of actions .
+
+## SEARCH PROBLEM ABSTRACTION
+
++ State space
++ Start state
++ Goal state
++ Actions and transition model
+    + What actions are availabe
+    + What action does
++ Path Gost
+
+
+## CONCEPTS DEFINITIONS
+
+
++ State space - all states
++ Search tree - all possible ways to go through the state space starting from the start state.
++ Node - state in search tree is represented by a node.
++   
+
+_From states and actions and action results you deduct state relations_
+
+# ALGORITHMS TO PERFORM GOAL SEARCH  
+
+## TSA - GSA
+
+GSA - explores 1 state once
+TSA - explores 1 state multiple times
+
+## IMPORTANT CHARACTERISTICS OF ALGORITHMS
+
+### Underlying datastructures
+
+These are the fundamental cornerstonest when thinking about structurin search problems. Whenever you thin about search problem structure, start with the underlyin datastructure and they will help you to define the search structure very well
+
+
+#### Frontier
+
+Here the algorithms keep yet unexplored states, which are children of explored states.  
+
+The data structure underlying the frontier makes the difference, whether the algorithm explores states in BFS or DFS manner.
+
+#### Explored - only with GSA
+
+Here the algorithm stores the states, that have been explored, e.g. states, which children have been added to the frontier.
+
+
+## UINFORMED  
+
+### BFS
+
+
+**Some info about TSA form**
+
++ **Complexity O(b^{d})** b - branching factor, d - closest solution
++ **Frontier: Queue**
++ **Space O(b^{d})**
++ **Complete** Yes, if branching factor is finite
++ **Optimal** - Yes, if step cost is always equal
+
+### DFS
+
+
+**Some info about TSA form**
+
++ **Complexity O(b^{n})** b - branching factor, n - depth of tree
++ **Frontier: Stack**
++ **Space $$O(n* b)$$**
++ **Complete**  No - if you can get from child to parent with some route, you're screwed
++ **Optimal** - No
+
+
+
+### UCS TSA
+
+
+**Some info about TSA form**
+
++ **Complexity O(b^{C/$$\epsilon$$})**  $$\epsilon$$ - Small positive constant $$C$$ - shallowest solution
++ **Space O(b^{C/$$\epsilon$$})** $$\epsilon$$ - Small positive constant $$C$$ - shallowest solution  
++ **Complete** Yes, $$\epsilon$$ larger than 0
++ **Optimal** - Yes
+
+**Frontier**
+
+Here I would like to focus a bit more on the frontier, because It becomes a bit more complicated because we are adding the distance information and consideration to the frontier. That means, whenever we store a child state/node of an expanded state/node to frontier, we also store the distance of that child node from the start state.
+
+**_Popping order_**
+
+In UCS we take elements with smallest distance from the start state first for exploration. In visualization of the search tree, this look still very similar to BFS, but now we keep in the frontier nodes from many levels of the tree.
+
+
+## INFORMED SEARCH
+
+
+###  $$A^{* }$$ ALGORITHM
+
+Takes The distance and heuristic sums them up. Compares based on that.
+Implementations can be different One way:
+
+[MY GITHUB CODE FOR A STAR](https://github.com/AndresNamm/BfsDfsUcsAstarHeuristics/blob/master/search/search.py)
+
+### HEURISTIC
+
+Main idea is that we add a certain Heuristic to guide our search some more. This heuristic tries to approximate in which direction in the state space the closest solution is. I then assigns child states certain values, which are smaller when the heursistic sees thos childs state being closer to the goal ( good states to expand). Heuristic is larger when this heuristic considers child states to be further away from the goal. (not good states to expand)
+
+#### ADMISSIBILITY OF HEURISTIC
+
+* If heuristic is admissible, then TSA leads to a OPTIMAL GOAL.
+
+_Proof_
+
+If there are 2 routes A which is optimal and B which is suboptimal, then every element in the optimal route including the goal is picked before the goal node of route B. This is because Admissibility guarantees us that (actual path cost from start to goal) >= (distance so far + heuristic value). Therefore we will never choose B goal node over any node in the path A.
+
+#### CONSISTENCY OF HEURISTIC
+
+* If heuristic is consistent, then GSA leads to a OPTIMAL GOAL
+
+
+
+d1,d2,d3,d4 are distances to between state  
+h1,h2,h3 are heuristics of each state  
+
+d1,h1,d2,h3 form 1 route to state that lies on the optimal route  
+d3,h2,d4,h3 form 1 route to state that lies on the optimal route
+
+_Lets assume inconsistency_
+
+1. h2-h3>d2 on route
+2. d1+d2<d3+d4
+3. We compare d1+h1 and d3+d4+h3
+4. Based on 1 and 2 => h2-h3> d3+d4-d1 => h2+d1>d3+d4+h3
+
+_Lets assume consistency_
+
+
+1. h2-h3<=d2 on route with any node
+2. d1+d2<d3+d4
+3. We compare d1+h1 and d3+d4+h3
+4. Based on 1 and 2 => h2-h3=<d3+d4-d1 => h2+d1=<d3+d4+h3
+
+
+
+# ADVERSARIAL SEARCH
+
+**MANY PLAYERS/AGENTS NOW**
+
+## GAME DEFINITION
+
+_My words_
+
++ Utility(agent, state)
++ Terminal(state)
++ state
++ action
++ agents
++ turn(state)
+
+_Actual Definition_
+
++ Utility(player, state) = Score of Player
++ Terminal(state) =
++ Result(state,action) = where you gonna end up in - In this tutorial, lets consider this Deterministic
++ Action(state) = legalActions
++ Player(state) = turn
+
+
+## OPTIMAL STRATEGY
+
+Optimal strategy is taking the best action possible against anothe optimal opponent
+
+## METHODS TO FIND OPTIMAL/ CLOSE TO OPTIMAL STRATEGT
+
+These methods are somewhat based on the previous part of this tutorial.
+
+### MINIMAX
+
+**INPUT: game**  
+**UNDERLYING RECURSIVE DFS TSA in its simplest form.**  
+**CONSIDERS THAT MAX AND MIN COME IN TURNS**    
+**RETURNS: OPTIMAL PATH**  
+
+
+1 Main function   
+Assigns turns based on Player(State)
+2 Recursive functions -
++ MAX return max(MIN(child1)MIN(child2).... MIN(childN))
++ MIN return min(MAX(child1),MAX(child2).... MAX(childN))
+
+#### OPTIMALITY
+
++ Best Result against an optimal agents
++ Against suboptimal agents: Better result on average than against optimal agents.
++ Against suboptimal agents: On average not the best results one can get against a suboptimal agent, because it assumes optimal behavior. I passive so to say.
+
+### EXPECTIMAX
+
+**INPUT: game**  
+**UNDERLYING RECURSIVE DFS TSA in its simplest form.**  
+**CONSIDERS THAT MAX AND EX COME IN TURNS**    
+**RETURNS: OPTIMAL PATH WHEN THE OPPONENT IS RANDOM**  
+
+1 Main function   
+Assigns turns based on Player(State)  
+2 Recursive functions
++ MAX return max(EX(child1)EX(child2).... EX(childN))
++ EX return avg(MAX(child1),MAX(child2).... MAX(childN))
+
+### EXPECTIMAX VS MINIMAX
+
++ FOR EXPECTIMAX MAGNITUDES MATTER FOR MINIMAX NOT
++ EXPECITMAX PLAYS ON AVERAGE BETTER AGAINST OPTIMAL OPPONENTS .
++ MINIMAX STRATEGY IS DOMINATED BY THE WORST CASE OUTCOME EVEN IF ITS VERY UNLIKELY
+
+### HEURISTICS
+
+Add Depth limit. Use some heursitic.
+
+
+### PRUNING
+
+[PRUNING](http://web.cs.ucla.edu/~rosen/161/notes/alphabeta.html)
+
+
+#### FOR REGULAR MINIMAX
+
+1 Main function   
+Assigns turns based on Player(State)
+2 Recursive functions
+
+These now pass on in addition to state: 2 variables $$(\alpha,\beta)$$ In the beginning $$\alpha=-\inf$$ and $$\beta=\inf$$ which indicates no bound
+
+**Max updates $$\alpha$$ and checks for $$\beta$$**
+$$\alpha$$ is kinda the lower bound of the values it will accept min subtrees.
+$$\beta$$ is kinda the upper bound of the values max parent min will accept from subtrees.
+
++ It updates alpha, when it gets some result from a subtree which is larger then the previous $$\alpha$$.
++ If a MIN subtree returns a value which is larger then the upper bound, it will stop checking other subtrees, because parent MIN is going to not accept it anyway. Instead it just returns the uppers bound
+
+**Min update $$\beta$$ and checks for $$\alpha$$**
+
+$$\beta$$ is kinda the upper bound of the values min will accept from subtrees.
+$$\alpha$$ is kinda the lower bound of the values its parents will accept from itself.
+
++ It updates alpha, when it gets some result from the subtree which is smaller than the current beta.
++ It checks for alpha. If the value it receives from a subtree is smaller than alpha it stops for checking, because parent is not going to accept that value anyway.
+
+
+##### PRUNING ORDER
+
+For max largest first
+For min smallest first.
+
+
+#### IS PRUNING POSSIBLE WITH EXPECTIMAX
+
+Not with standard one
+
+### K AGENT SUM GAMES
+
+
+**MIN MAX** assumes an overall utility which is same for every player/agent
+
+Multiple actors. How to deal with them? Instead of Utility return multiple results. Each agent minimizes maximizes their own result.
+
+
+
+There is also possible to have multiple maximizers for same result. The key there is to to choose every player as a maximized for their own turn. Good example of this is Tic Tac Toe.-
+This problem is interesting, because Tic Tac Toe could be also considered as Min Max game. Very Much depends on the perspective.  
+
+The drinking game is also a game like that.   
+
+
+## UTILITY
+
+
+Pretty much
+
+$$A>B>C=>\exists p,[p*A;(1-c)* C]\text{~}B$$
+
+This allows us to calculate probability and based on probability assign value to B.
+
++ Lottery value for rational agent [pA,(1-p)B] = p*A+(1-p)* B 

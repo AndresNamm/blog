@@ -1,0 +1,47 @@
+---
+layout: post
+title: Pipeline of this Blog
+category: formating
+
+---
+
+
+It took me 2 days to set up a pipeline for this blog. 
+
+# Basic actions to modifying a post:
+
+1. Write a new or modify an old .markdown **Only .mardkown** file with Visual Studio Code mdmath editor in whatever folder you want.
+2. Use the script [blogPipeline](https://github.com/AndresNamm/Management-Scripts/blob/master/blogPipeline.py) to all copy the contents of your modified folder into the webPage _post folder. It replaces old files and adds new files. This does necessary conversions for the files as well.   
+
+**Usage of this script is like this(segment located in the end of file):**
+~~~Python
+files = getAllFilesInSub(modifyDirectory('F:\Projects\posts'))
+print(len(files))
+for file in files:
+    print(file)
+modifyFile(file, outPath=modifyDirectory("F:\Projects\jekyll\\blog\_posts"))
+~~~ 
+In script replace:
++ "F:\Projects\jekyll\\blog\_posts" <- Output files
++ 'F:\Projects\posts' <- Input files
+
+
+3. Now you can commit the code to gh-pages.
+
+# Setting up Jekyll blog on github. 
+
+Most important
+
++ [Started with ths](https://scotch.io/tutorials/getting-started-with-jekyll-plus-a-free-bootstrap-3-starter-theme)  
++ [Simple Jekyll with Github Pages starting tutorial starts her ](https://www.youtube.com/watch?v=oiNVQ9Zjy4o&t=10s)
++ [Jekyll theme](https://www.youtube.com/watch?v=bty7LHm14CA&t=521s)  
++ [Jekkull gems - for ryby dependency management. I had some issues with pagination, this solved](https://learn.cloudcannon.com/jekyll/gemfiles-and-the-bundler/#introduction)  
+
+Additional info 
+
++ [This seem comprehensive and all includig- i followed thi tutoria for gems](https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/)  
++ [ABout gem and bundler](https://jekyllrb.com/docs/quickstart/)  
++ Use categories to group posts. 
+
+
+

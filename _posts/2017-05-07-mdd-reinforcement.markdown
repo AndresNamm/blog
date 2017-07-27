@@ -1,7 +1,6 @@
 ---
 layout: "post"
-title: "LEARNING A POLICY UNDER A MARKOV DECISION PROCESS WITH METHODS DERIVED FROM BELLMAN EQUATION
-"
+title: "Learning a policy under Markov Decision process with Bellman equation based methods"
 date: "2017-05-07 13:16"
 category: machine-learning
 
@@ -228,7 +227,7 @@ $$Sample(s,a) = R(s,a,s')+max_{a}Q(s')$$
 s
 #### Exploration and Learning parameters
 
-+ $$$$$$\alpha$$$$$$ must decrease eventually
++ $$\alpha$$ must decrease eventually
 + Optimal exploration with $$1-\epsilon$$ Random exploration with some probability $$\epsilon$$, so other states would be collected. This parameter must also decrease, because in the end with knowledge we want to gain information about optimal state.
 
 #### Q-value Approximation & Updated Q-learning- Kinda hard part
