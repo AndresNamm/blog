@@ -8,7 +8,29 @@ category: formating
 
 It took me 2 days to set up a pipeline for this blog. 
 
-# Basic actions to modifying a post:
+# Requirements to write a post thats going up to this webpage
+
+When writing the post that will end up to this webPage its best to 
+
+0. Start bash 
+0. Go to your blog directory
+1. Run jekyll serve --baseurl="" 
+2. Add all images to assets folder in blog directory
+3. Refernce images. Like this   
+
+
+~~~markdown
+![]({{site.baseurl}}/assets/cb1.png)
+~~~
+
+
+ This allows to see the image in the visual studio code editor and allows for blogPipeline.py function to rename the references appropriately so the posts can be uploaded to github. Here is the blogPipeline.py renamed image example. 
+
+ ![]({{site.baseurl}}/assets/cb1.png)
+
+
+
+# Basic actions to modifying a post and making it web ready.  :
 
 1. Write a new or modify an old .markdown **Only .mardkown** file with Visual Studio Code mdmath editor in whatever folder you want.
 2. Use the script [blogPipeline](https://github.com/AndresNamm/Management-Scripts/blob/master/blogPipeline.py) to all copy the contents of your modified folder into the webPage _post folder. It replaces old files and adds new files. This does necessary conversions for the files as well.   
@@ -28,7 +50,7 @@ In script replace:
 
 3. Now you can commit the code to gh-pages.
 
-# Setting up Jekyll blog on github. 
+# Setting up Jekyll blog on github References 
 
 Most important
 

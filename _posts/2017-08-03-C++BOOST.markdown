@@ -1,0 +1,105 @@
+---
+layout: "post"
+title: "Tutorial on how to build Boost with Mingw on Windows, Build a program with Boost plus linker libraries in codeblocks"
+category: formating
+
+---
+
+
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+[[toc]]
++ TOC
+{:toc}  
+
+
+
+### WHAT IS  including libraries 
+https://stackoverflow.com/questions/1069602/how-do-i-install-a-c-library-so-i-can-use-it  
+
+Installing a C++ library means specifying to interested software (eg. a compiler) the location of two kinds of files: headers (typical extensions *.h or .hpp) and compiled objects (.dll or *.lib for instance).
+
+The headers will contain the declarations exposed to the developer by the library authors, and your program will #include them in its source code, the dll will contain the compiled code which will be or linked together and used by your program, and they will be found by the linker (or loaded dynamically, but this is another step).
+
+So you need to
+
+1) put the header files in a location which your compiler is aware of (typically IDE allows to set so-called include directories, otherwise you specify a flag like "-I<path-to-headers>" when invoking the compiler)
+2) put the dll files in a location which your linker is aware of (surely your IDE will allow that, otherwise you speficy a flag like "-L<path-to-libraries> -l<name-of-libraries>"
+Last but not least, since I see that BASS library is a commercial product, probably they will have made available some installation instructions?
+
+### EXPLANATORY VIDEOS OF INSTALLING BOOST WITH CODEBLOCKS AND MINGW ON WINDOWS
+
+ + https://www.youtube.com/watch?annotation_id=annotation_4202322145&feature=iv&src_vid=qDVRrSzsqco&v=Mioo8Hnp6M8]
+
+ + https://www.youtube.com/watch?v=49d0Abl2t0E&t=4s
+
+ + http://megalomaniacbore.blogspot.com.ee/2014/05/setting-up-codeblocks-on-windows.html
+
+### SOME INFO ABOUT COMPILING BOOST WITH MINGW GCC 
+ 
+
+ + http://megalomaniacbore.blogspot.com.ee/2014/05/setting-up-codeblocks-on-windows.html
+
+ + http://www.boost.org/build/doc/html/bbv2/overview/invocation.html - HERE ctrl + f toolset - toolset specified the compiler to use to compile boost.  Tundub, et võiks töötada. 
+
+### My installation that worked:  Install boost_1_64_0 with : mingw32-g++.exe (tdm-1) 4.9.2 Windows 
+
+1. Add mingw\bin directory to your path - so you could use gcc in powershell
+2. Go to boost root directory
+3. execute  "\. bootstrap.exe gcc"  – sets up installation files 
+4. execute "\. b2.exe toolset=gcc" – builds boost files. Takes a long time 
+
+
+### Link boost with codeblocks :
+
+
+1 Right click on project -> Build options 
+
+
+![]({{site.baseurl}}/assets/cb1.png)
+
+Click on project tree  above Debug an Release. Here it is gg which is my project name. Then click on Search directories -> Add 
+
+![]({{site.baseurl}}/assets/cb2.png)
+
+
+Add from the explorer ther root of your boost installation. 
+
+![]({{site.baseurl}}/assets/cb3.png)
+
+Now click on Linker Settings
+
+
+![]({{site.baseurl}}/assets/cb4.png)
+
+Add the built library [Sometimes you dont need to do that, because the library does not need it] for linking.  From boost/stage/lib folder <- sometimes can be different.
+
+![]({{site.baseurl}}/assets/cb5.png)
+
+
+Compile your code. Sometimes you need to specify compiler settings at the same window you added libraries
+
+
+~~~c++
+#include <boost/regex.hpp>
+#include <string>
+#include <iostream>
+
+int main()
+{
+  std::string s = "Boost Libraries";
+  boost::regex expr{"\\w+\\s\\w+"};
+  std::cout << std::boolalpha << boost::regex_match(s, expr) << '\n';
+}
+
+~~~
+
+
+![]({{site.baseurl}}/assets/cb6.png)
+
+
